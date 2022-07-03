@@ -15,19 +15,30 @@ namespace Persistence.Repositories
         }
 
 
-
         public DbSet<T> Table => context.Set<T>();
 
-        public IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null)
-        {
-            return filter == null ? Table : Table.Where(filter);
-        }
 
-        public async Task<T> GetAsync(Expression<Func<T, bool>> filter)
-        {
-            return await Table.Where(filter).SingleOrDefaultAsync();
-        }
+        /* bu iki metodu teke düşürücem */
+        public IQueryable<T> GetAll(bool tracking = true)
+            => tracking ? Table : Table.AsNoTracking();
 
-      
+
+        public IQueryable<T> GetWhere(Expression<Func<T, bool>> filter, bool tracking = true)
+            => tracking ?
+            Table.Where(filter) :
+            Table.Where(filter).AsNoTracking();
+
+
+
+        /* bu iki metodu teke düşürücem */
+        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> filter, bool tracking = true)
+            => tracking ?
+            await Table.FirstOrDefaultAsync(filter) :
+            await Table.AsQueryable().AsNoTracking().FirstOrDefaultAsync(filter);
+
+        public async Task<T> GetByIdAsync(Guid id, bool tracking = true)
+          => tracking ?
+            await Table.FindAsync(id) :
+            await Table.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
 }

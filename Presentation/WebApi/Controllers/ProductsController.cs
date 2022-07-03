@@ -1,5 +1,5 @@
-﻿using Application.Abstract;
-using Microsoft.AspNetCore.Http;
+﻿using Application.Repositories.ProductRepositories;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -8,17 +8,24 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductService productService;
-        public ProductsController(IProductService productService)
+        private readonly IProductReadRepository productReadRepository;
+        private readonly IProductWriteRepository productWriteRepository;
+        public ProductsController(IProductWriteRepository productWriteRepository, IProductReadRepository productReadRepository)
         {
-            this.productService = productService;
+            this.productWriteRepository = productWriteRepository;
+            this.productReadRepository = productReadRepository;
         }
 
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll(Guid id)
         {
-            var result = productService.GetAll();
+
+            var product = await productReadRepository.GetByIdAsync(id);
+            product.ProductName = "laptop 1";
+            await productWriteRepository.SaveAsync();
+         
+            var result = productReadRepository.GetAll();
             return Ok(result);
         }
 

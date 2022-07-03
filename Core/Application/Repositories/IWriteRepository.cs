@@ -1,16 +1,15 @@
-﻿
-using Domain.Entities;
+﻿using Domain.Entities;
 
 namespace Application.Repositories
 {
     public interface IWriteRepository<T> : IRepository<T> where T : BaseEntity
     {
         Task<bool> AddAsync(T entity);
-        Task<bool> AddAsync(List<T> entities);
+        Task<bool> AddRangeAsync(List<T> entities);
 
-        bool Delete(T entity);
-        bool Delete(List<T> entities);
-        Task<bool> DeleteAsync(string id);
+        bool Remove(T entity);
+        bool RemoveRange(List<T> entities);
+        Task<bool> RemoveAsync(string id);
 
         bool Update(T entity);
 
