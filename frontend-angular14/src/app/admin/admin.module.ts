@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutModule } from './layout/layout.module';
-import { UiModule } from '../ui/ui.module';
+import { ComponentsModule } from './components/components.module';
 
 
 
@@ -9,11 +9,12 @@ import { UiModule } from '../ui/ui.module';
   declarations: [],
   imports: [
     CommonModule,
-    LayoutModule
+    LayoutModule,
+    ComponentsModule
   ],
   exports: [
     LayoutModule,
-    UiModule
+    ComponentsModule
   ]
 })
 export class AdminModule { }
