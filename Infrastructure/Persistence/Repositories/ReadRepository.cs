@@ -36,9 +36,9 @@ namespace Persistence.Repositories
             await Table.FirstOrDefaultAsync(filter) :
             await Table.AsQueryable().AsNoTracking().FirstOrDefaultAsync(filter);
 
-        public async Task<T> GetByIdAsync(Guid id, bool tracking = true)
+        public async Task<T> GetByIdAsync(string id, bool tracking = true)
           => tracking ?
             await Table.FindAsync(id) :
-            await Table.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            await Table.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Guid.Parse(id));
     }
 }

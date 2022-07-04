@@ -6,6 +6,11 @@ builder.Services.AddPersistenceServices();
 
 builder.Services.AddControllers();
 
+// cors config
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowOrigin",
+    builder => builder.WithOrigins("http://localhost:4200")); });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -16,6 +21,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
 app.UseHttpsRedirection();
 

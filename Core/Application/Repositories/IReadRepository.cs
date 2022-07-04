@@ -12,7 +12,7 @@ namespace Application.Repositories
 
         // bu ikisini değiştircem. bir metod şeklinde sadece get yapıcam
         Task<T> GetSingleAsync(Expression<Func<T, bool>> filter, bool tracking = true);
-        Task<T> GetByIdAsync(Guid id, bool tracking = true);
+        Task<T> GetByIdAsync(string id, bool tracking = true);
 
 
       //  Task<T> GetAsync(Expression<Func<T, bool>> filter);
