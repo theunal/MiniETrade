@@ -9,12 +9,10 @@ import { ComponentsModule } from './components/components.module';
   declarations: [],
   imports: [
     CommonModule,
-    LayoutModule,
-    ComponentsModule
+    LayoutModule, ComponentsModule
   ],
   exports: [
-    LayoutModule,
-    ComponentsModule
+    LayoutModule, ComponentsModule
   ]
 })
 export class AdminModule { }
