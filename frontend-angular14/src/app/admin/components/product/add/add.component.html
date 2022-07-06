@@ -1,0 +1,26 @@
+<p class="text-center text-info display-4">ürün ekle</p>
+
+<div class="row justify-content-center mx-auto mt-3">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Ürün Adı</mat-label>
+        <input matInput type="text" #productName>
+    </mat-form-field>
+</div>
+
+<div class="row justify-content-center mx-auto">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Stok Adedi</mat-label>
+        <input matInput type="number" #stock>
+    </mat-form-field>
+</div>
+
+<div class="row justify-content-center mx-auto">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Ürün Fiyatı</mat-label>
+        <input matInput type="number" #price>
+    </mat-form-field>
+</div>
+
+<div class="text-center mt-2">
+    <button class="btn btn-primary" (click)='productAdd(productName, stock, price)'>Ürünü Kaydet</button>
+</div>

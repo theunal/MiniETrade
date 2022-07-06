@@ -2,6 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductComponent } from './product.component';
 import { RouterModule, Routes } from '@angular/router';
+import { AddComponent } from './add/add.component';
+import { MatInputModule } from '@angular/material/input';
+import { ListComponent } from './list/list.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
   { path: '', component: ProductComponent }
@@ -9,10 +15,16 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    ProductComponent
+    ProductComponent,
+    AddComponent,
+    ListComponent
   ],
   imports: [
     CommonModule,
+    MatInputModule,
+    NgxSpinnerModule,
+    MatTableModule,
+    MatPaginatorModule,
     RouterModule.forChild(routes)
   ]
 })

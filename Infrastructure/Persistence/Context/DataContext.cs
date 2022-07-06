@@ -24,7 +24,8 @@ namespace Persistence.Context
                 _ = item.State switch
                 {
                     EntityState.Added => item.Entity.CreatedDate = DateTime.Now,
-                    EntityState.Modified => item.Entity.UpdatedDate = DateTime.Now
+                    EntityState.Modified => item.Entity.UpdatedDate = DateTime.Now,
+                    _ => DateTime.Now
                 };
             }
             return await base.SaveChangesAsync(cancellationToken);

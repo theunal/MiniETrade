@@ -11,15 +11,15 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
-    LayoutComponent,
+    LayoutComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     ComponentsModule,
     MatSidenavModule,
-    NgxSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   exports: [
     LayoutComponent

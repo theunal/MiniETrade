@@ -1,1 +1,12 @@
-<p>product works!</p>
+<div class="row">
+    <div class="col-md-3">
+        <app-add></app-add>
+    </div>
+    <div class="col-md-9">
+        <app-list></app-list>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="line-scale" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
