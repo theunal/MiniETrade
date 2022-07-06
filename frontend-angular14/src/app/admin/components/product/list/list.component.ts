@@ -5,7 +5,6 @@ import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/common/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatPaginator } from '@angular/material/paginator';
-import { takeLast } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -28,8 +27,6 @@ export class ListComponent implements OnInit {
 
   async getProducts() {
     this.spinner.show()
-
-    
     let products = await this.productService
       .getProducts(this.paginator?.pageIndex, this.paginator?.pageSize, () => this.spinner.hide(), (errorMessage) => {
         this.spinner.hide()

@@ -1,6 +1,6 @@
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProductService } from './../../../../services/common/product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProductAddDto } from 'src/app/models/ProductAddDto';
 import { ToastrService } from 'ngx-toastr';
 
@@ -10,6 +10,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./add.component.css']
 })
 export class AddComponent implements OnInit {
+
+  @Output() // veri gönderiyoruz
+  myEvent: EventEmitter<any> = new EventEmitter()
 
   constructor(private productService: ProductService, private spinner: NgxSpinnerService, private toastr: ToastrService) { }
 
@@ -23,14 +26,15 @@ export class AddComponent implements OnInit {
       stock: parseInt(stock.value),
       price: parseInt(price.value)
     }
-    console.log(product)
     this.productService.productAdd(product).subscribe(res => {
       this.spinner.hide()
       this.toastr.success(productName.value, 'ürün eklendi')
     }, err => {
       this.spinner.hide()
-      if (err.statusCode = '200')
-        this.toastr.success(productName.value, 'ürün eklendi')
+      if (err.statusCode = '200') {
+        this.toastr.success(productName.value, 'ürün eklendi 2')
+        this.myEvent.emit(true)
+      }
       else
         this.toastr.error(err.error)
     })

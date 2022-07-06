@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ListComponent } from './list/list.component';
 
 @Component({
   selector: 'app-product',
@@ -12,4 +13,9 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @ViewChild(ListComponent) listComponent: ListComponent
+
+  createdProduct(event: any) {
+    this.listComponent.getProducts()
+  }
 }
