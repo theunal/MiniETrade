@@ -13,7 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class ListComponent implements OnInit {
 
-  displayedColumns: string[] = ['productName', 'stock', 'price', 'createdDate', 'updatedDate']
+  displayedColumns: string[] = ['productName', 'stock', 'price', 'createdDate', 'updatedDate', 'delete']
   dataSource = new MatTableDataSource<Product>()
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -40,5 +40,9 @@ export class ListComponent implements OnInit {
     this.paginator.pageIndex = event.pageIndex
     this.paginator.pageSize = event.pageSize
     this.getProducts()
+  }
+
+  deleteProduct(id: string) {
+    console.log(id)
   }
 }

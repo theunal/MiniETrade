@@ -30,9 +30,9 @@ export class HttpClientService {
     return this.httpClient.put<string>(url, body, { headers: requestParameter.headers })
   }
 
-  delete(requestParameter: Partial<RequestParameter>, id: string): Observable<string> {
+  delete(requestParameter: Partial<RequestParameter>, id: string): Observable<any> {
     let url = requestParameter.fullEndPoint ? requestParameter.fullEndPoint : `${this.url(requestParameter)}?id=${id}`
-    return this.httpClient.delete<string>(url, { headers: requestParameter.headers })
+    return this.httpClient.delete<any>(url, { headers: requestParameter.headers })
   }
 }
 

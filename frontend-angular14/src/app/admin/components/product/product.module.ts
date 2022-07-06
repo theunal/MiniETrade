@@ -8,6 +8,7 @@ import { ListComponent } from './list/list.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
 
 const routes: Routes = [
   { path: '', component: ProductComponent }
@@ -17,7 +18,8 @@ const routes: Routes = [
   declarations: [
     ProductComponent,
     AddComponent,
-    ListComponent
+    ListComponent,
+    DeleteDirective
   ],
   imports: [
     CommonModule,
