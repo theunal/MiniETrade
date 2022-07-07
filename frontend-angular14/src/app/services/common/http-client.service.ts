@@ -16,7 +16,7 @@ export class HttpClientService {
   }
 
   get<T>(requestParameter: Partial<RequestParameter>, id?: string): Observable<T> {
-    let url = requestParameter.fullEndPoint ? requestParameter.fullEndPoint : `${this.url(requestParameter)}${id ? `?id=${id}` : ''}`
+    let url = requestParameter.fullEndPoint ? requestParameter.fullEndPoint : `${this.url(requestParameter)}${id ? `?Id=${id}` : ''}`
     return this.httpClient.get<T>(url, { headers: requestParameter.headers })
   }
 
@@ -31,7 +31,7 @@ export class HttpClientService {
   }
 
   delete(requestParameter: Partial<RequestParameter>, id: string): Observable<any> {
-    let url = requestParameter.fullEndPoint ? requestParameter.fullEndPoint : `${this.url(requestParameter)}?id=${id}`
+    let url = requestParameter.fullEndPoint ? requestParameter.fullEndPoint : `${this.url(requestParameter)}?Id=${id}`
     return this.httpClient.delete<any>(url, { headers: requestParameter.headers })
   }
 }

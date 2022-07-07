@@ -16,11 +16,11 @@ export class AddComponent implements OnInit {
   myEvent: EventEmitter<any> = new EventEmitter()
 
   @Output()
-  fileUploadOptions : Partial<FileUploadOptions> = {
+  fileUploadOptions: Partial<FileUploadOptions> = {
     controller: 'products',
     action: 'upload',
     message: 'resimleri seçin',
-    accept: 'image/*', 
+    accept: 'image/*',
   }
 
   constructor(private productService: ProductService, private spinner: NgxSpinnerService, private toastr: ToastrService) { }
@@ -35,17 +35,13 @@ export class AddComponent implements OnInit {
       stock: parseInt(stock.value),
       price: parseInt(price.value)
     }
-    this.productService.productAdd(product).subscribe(res => {
+    this.productService.productAdd(product).subscribe((res: any) => {
       this.spinner.hide()
-      this.toastr.success(productName.value, 'ürün eklendi')
+      this.toastr.success(res.message, productName.value)
+      this.myEvent.emit(true)
     }, err => {
       this.spinner.hide()
-      if (err.statusCode = '200') {
-        this.toastr.success(productName.value, 'ürün eklendi 2')
-        this.myEvent.emit(true)
-      }
-      else
-        this.toastr.error(err.error)
+      console.log('err')
     })
   }
 

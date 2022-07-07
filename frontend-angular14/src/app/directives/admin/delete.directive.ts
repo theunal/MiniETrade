@@ -10,8 +10,8 @@ declare var $: any
 })
 export class DeleteDirective {
 
-  constructor(private element: ElementRef, private renderer: Renderer2, private http: HttpClientService, 
-    private alertify : AlertifyjsService) {
+  constructor(private element: ElementRef, private renderer: Renderer2, private http: HttpClientService,
+    private alertify: AlertifyjsService) {
     let button = renderer.createElement('button')
     button.setAttribute('class', 'btn btn-danger btn-sm')
     button.innerHTML = 'Sil'
@@ -36,10 +36,10 @@ export class DeleteDirective {
     this.http.delete({
       controller: this.controller,
       action: this.action
-    }, this.id).subscribe(res => {
+    }, this.id).subscribe((res: any) => {
+      this.alertify.message(res.message, MessageType.Success, Position.TopCenter)
     }, err => {
-      if (err.statusCode = '200')
-      this.alertify.message('Ürün silindi',MessageType.Success, Position.TopCenter)
+      console.log('delete error')
     })
     $(this.element.nativeElement.parentElement).fadeOut(500, () => {
       this.getProducts.emit()
