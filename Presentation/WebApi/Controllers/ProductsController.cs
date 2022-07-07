@@ -1,7 +1,9 @@
 ﻿using Application.Dtos;
+using Application.Features.Queries.GetAllProducts;
 using Application.Repositories.ProductRepositories;
 using Application.RequestParameters;
 using Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -10,42 +12,24 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly IMediator mediator;
         private readonly IProductReadRepository productReadRepository;
         private readonly IProductWriteRepository productWriteRepository;
-        public ProductsController(IProductWriteRepository productWriteRepository, IProductReadRepository productReadRepository)
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        public ProductsController(IMediator mediator, IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IWebHostEnvironment webHostEnvironment)
         {
-            this.productWriteRepository = productWriteRepository;
+            this.mediator = mediator;
             this.productReadRepository = productReadRepository;
+            this.productWriteRepository = productWriteRepository;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
-
-
         [HttpGet("getAll")]
-        public IActionResult GetAll([FromQuery]Pagination pagination)
+        public async Task<IActionResult> GetAll([FromQuery] GetAllProductsQueryRequest request)
         {
-            //return Ok(productReadRepository.GetAll(false).Select(x => new
-            //{
-            //    x.Id,
-            //    x.ProductName,
-            //    x.Stock,
-            //    x.Price,
-            //    x.CreatedDate,
-            //    x.UpdatedDate
-            //}));
-
-            var result = productReadRepository.GetAll(false).
-                Skip(pagination.Page * pagination.Size).Take(pagination.Size);
-
-            var totalCount = productReadRepository.GetAll(false).Count();
-
-            // hangi elemana sıçramak istiyorsak ona skip ediyoruz
-            // sonra take ile alıyoruz
-
-            return Ok(new
-            {
-                result,
-                totalCount
-            });
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
 
         [HttpGet("getById")]
@@ -80,8 +64,8 @@ namespace WebApi.Controllers
             product.Stock = dto.Stock;
             productWriteRepository.Update(product);
 
-            await productWriteRepository.SaveAsync(); 
-            
+            await productWriteRepository.SaveAsync();
+
             return Ok();
         }
 
@@ -94,6 +78,29 @@ namespace WebApi.Controllers
             return Ok("Ürün silindi.");
         }
 
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> Upload()
+        {
+            var uploadPath = Path.Combine(webHostEnvironment.WebRootPath, "resource/product-images");
+
+            _ = !Directory.Exists(uploadPath) ? Directory.CreateDirectory(uploadPath) : null;
+
+            Random random = new();
+            foreach (var file in Request.Form.Files)
+            {
+                var fullPath = Path.
+                   Combine(uploadPath, $"{random.NextDouble()}{Path.GetExtension(file.FileName)}");
+
+                using FileStream fileStream =
+                    new(fullPath, FileMode.Create, FileAccess.Write,
+                    FileShare.None, 1024 * 1024, useAsync: false);
+
+                await file.CopyToAsync(fileStream);
+                await fileStream.FlushAsync();
+            }
+            return Ok();
+        }
 
     }
 }

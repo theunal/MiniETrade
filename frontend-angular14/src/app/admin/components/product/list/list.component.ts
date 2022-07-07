@@ -32,7 +32,7 @@ export class ListComponent implements OnInit {
         this.spinner.hide()
         this.toastr.error(errorMessage)
       })
-    this.dataSource = new MatTableDataSource<Product>(products.result)
+    this.dataSource = new MatTableDataSource<Product>(products.products)
     this.paginator.length = products.totalCount
   }
 

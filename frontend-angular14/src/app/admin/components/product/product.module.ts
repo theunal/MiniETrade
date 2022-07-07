@@ -9,6 +9,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
+import {MatDialogModule} from '@angular/material/dialog';
+import { FileUploadModule } from 'src/app/services/common/file-upload/file-upload.module';
 
 const routes: Routes = [
   { path: '', component: ProductComponent }
@@ -27,6 +29,8 @@ const routes: Routes = [
     NgxSpinnerModule,
     MatTableModule,
     MatPaginatorModule,
+    MatDialogModule,
+    FileUploadModule,
     RouterModule.forChild(routes)
   ]
 })

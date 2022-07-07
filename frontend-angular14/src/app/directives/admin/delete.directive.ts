@@ -1,5 +1,7 @@
+import { Position } from './../../services/admin/alertifyjs.service';
 import { Directive, ElementRef, HostListener, Input, Output, Renderer2, EventEmitter } from '@angular/core';
-import { ProductService } from 'src/app/services/common/product.service';
+import { AlertifyjsService, MessageType } from 'src/app/services/admin/alertifyjs.service';
+import { HttpClientService } from 'src/app/services/common/http-client.service';
 
 declare var $: any
 
@@ -8,7 +10,8 @@ declare var $: any
 })
 export class DeleteDirective {
 
-  constructor(private element: ElementRef, private renderer: Renderer2, private productService: ProductService) {
+  constructor(private element: ElementRef, private renderer: Renderer2, private http: HttpClientService, 
+    private alertify : AlertifyjsService) {
     let button = renderer.createElement('button')
     button.setAttribute('class', 'btn btn-danger btn-sm')
     button.innerHTML = 'Sil'
@@ -18,16 +21,30 @@ export class DeleteDirective {
   @Input()
   id: string
 
+  @Input()
+  controller: string
+
+  @Input()
+  action: string
+
+
   @Output()
-  getProducts : EventEmitter<any> = new EventEmitter()
+  getProducts: EventEmitter<any> = new EventEmitter()
 
   @HostListener('click')
   onclick() {
-    this.productService.delete(this.id).then().catch()
+    this.http.delete({
+      controller: this.controller,
+      action: this.action
+    }, this.id).subscribe(res => {
+    }, err => {
+      if (err.statusCode = '200')
+      this.alertify.message('Ürün silindi',MessageType.Success, Position.TopCenter)
+    })
     $(this.element.nativeElement.parentElement).fadeOut(500, () => {
       this.getProducts.emit()
     })
     console.log(this.id)
   }
-
 }
+
