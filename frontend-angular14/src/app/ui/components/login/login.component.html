@@ -1,0 +1,31 @@
+<p class="text-center text-success display-4 mt-2">Giriş Yap</p>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+
+    <div class="row justify-content-center mt-5">
+        <div class="input-group flex-nowrap w-50">
+            <input type="text" placeholder="Kullanıcı Adı veya E-mail" class="form-control"
+                formControlName='userNameOrEmail'>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="input-group flex-nowrap w-50">
+            <input type="password" placeholder="Şifre" class="form-control" formControlName='password'>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="input-group flex-nowrap w-50">
+            <button class="btn btn-info mx-2" type="submit">Giriş Yap</button>
+
+            <asl-google-signin-button></asl-google-signin-button>
+           
+        </div>
+    </div>
+
+</form>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="line-scale" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

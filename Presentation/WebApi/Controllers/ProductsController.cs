@@ -4,12 +4,14 @@ using Application.Features.Commands.Product.ProductUpdate;
 using Application.Features.Queries.Product.GetAllProducts;
 using Application.Features.Queries.Product.ProductGetById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "admin")]
     public class ProductsController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -31,7 +33,6 @@ namespace WebApi.Controllers
             var result = await mediator.Send(request);
             return Ok(result);
         }
-
 
         [HttpPost("add")]
         public async Task<IActionResult> Add(ProductAddCommandRequest request)

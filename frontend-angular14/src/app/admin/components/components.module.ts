@@ -14,7 +14,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     CustomerModule,
     DashboardModule,
     OrderModule,
-    ProductModule,
+    ProductModule
   ],
   exports: [
   ]

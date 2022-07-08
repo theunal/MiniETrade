@@ -20,9 +20,9 @@ export class HttpClientService {
     return this.httpClient.get<T>(url, { headers: requestParameter.headers })
   }
 
-  post<T>(requestParameter: Partial<RequestParameter>, body: T): Observable<string> {
+  post<T>(requestParameter: Partial<RequestParameter>, body: T): Observable<any> {
     let url = requestParameter.fullEndPoint ? requestParameter.fullEndPoint : this.url(requestParameter)
-    return this.httpClient.post<string>(url, body, { headers: requestParameter.headers })
+    return this.httpClient.post<any>(url, body, { headers: requestParameter.headers })
   }
 
   put<T>(requestParameter: Partial<RequestParameter>, body: Partial<T>): Observable<string> {

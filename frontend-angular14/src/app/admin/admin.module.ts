@@ -9,8 +9,7 @@ import { ComponentsModule } from './components/components.module';
   ],
   imports: [
     CommonModule,
-    LayoutModule, ComponentsModule,
-    
+    LayoutModule, ComponentsModule
   ],
   exports: [
     LayoutModule, ComponentsModule

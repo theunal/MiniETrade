@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/common/auth.service';
 
 
 @Component({
@@ -7,6 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'frontend-angular14';
+  constructor(private authService: AuthService) { }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated()
+  }
+
+  logout() {
+    this.authService.logout()
+  }
 }
 

@@ -1,0 +1,40 @@
+<p class="text-center text-success display-4 mt-2">Kayıt Ol</p>
+
+<form [formGroup]='registerForm' (ngSubmit)='register()'>
+
+    <div class="row justify-content-center mt-5">
+        <div class="input-group flex-nowrap w-25">
+            <input type="text" placeholder="Ad Soyad" class="form-control" formControlName='name'>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="input-group flex-nowrap w-25">
+            <input type="text" placeholder="Kullanıcı Adı" class="form-control" formControlName='userName'>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="input-group flex-nowrap w-25">
+            <input type="email" placeholder="E-mail" class="form-control" formControlName='email'>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="input-group flex-nowrap w-25">
+            <input type="password" placeholder="Şifre" class="form-control" formControlName='password'>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="input-group flex-nowrap w-25">
+            <input type="password" placeholder="Şifre Tekrarı " class="form-control" formControlName='passwordAgain'>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="input-group flex-nowrap w-25">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+    </div>
+</form>
