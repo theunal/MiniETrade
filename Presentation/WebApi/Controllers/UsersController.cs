@@ -1,4 +1,5 @@
-﻿using Application.Features.Commands.AppUser.GoogleLogin;
+﻿using Application.Features.Commands.AppUser.FacebookLogin;
+using Application.Features.Commands.AppUser.GoogleLogin;
 using Application.Features.Commands.AppUser.UserAdd;
 using Application.Features.Commands.AppUser.UserLogin;
 using MediatR;
@@ -33,6 +34,14 @@ namespace WebApi.Controllers
 
         [HttpPost("googleLogin")]
         public async Task<IActionResult> GoogleLogin(GoogleLoginCommandRequest request)
+        {
+            var result = await mediator.Send(request);
+            return Ok(result);
+        }
+
+
+        [HttpPost("fbLogin")]
+        public async Task<IActionResult> FacebookLogin(FacebookLoginCommandRequest request)
         {
             var result = await mediator.Send(request);
             return Ok(result);

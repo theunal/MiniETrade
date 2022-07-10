@@ -22,8 +22,8 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token')
-    this.isAuthenticated()
-    this.router.navigate(['/login'])
+    this.isAuth = false
+    // this.router.navigate(['/login']) logine giderse otomatik giriş yapıyor
     this.toastr.info('çıkış yaptınız')
   }
 

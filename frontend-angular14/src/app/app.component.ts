@@ -11,10 +11,11 @@ export class AppComponent {
   constructor(private authService: AuthService) { }
 
   isAuthenticated() {
-    return this.authService.isAuthenticated()
+    return this.authService.isAuth
   }
 
   logout() {
+    console.log('app component logout calıstı')
     this.authService.logout()
   }
 }

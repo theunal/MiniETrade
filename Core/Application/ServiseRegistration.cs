@@ -8,6 +8,7 @@ namespace Application
         public static void AddApplicationServices(this IServiceCollection collection)
         {
             collection.AddMediatR(typeof(ServiseRegistration));
+            collection.AddHttpClient();
         }
     }
 }

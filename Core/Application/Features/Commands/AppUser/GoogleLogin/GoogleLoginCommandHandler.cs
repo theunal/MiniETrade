@@ -7,12 +7,10 @@ namespace Application.Features.Commands.AppUser.GoogleLogin
 {
     public class GoogleLoginCommandHandler : IRequestHandler<GoogleLoginCommandRequest, GoogleLoginCommandResponse>
     {
-        private readonly IMediator mediator;
         private readonly UserManager<Domain.Entities.Identity.AppUser> userManager;
         private readonly ITokenHandler tokenHandler;
-        public GoogleLoginCommandHandler(IMediator mediator, UserManager<Domain.Entities.Identity.AppUser> userManager, ITokenHandler tokenHandler)
+        public GoogleLoginCommandHandler(UserManager<Domain.Entities.Identity.AppUser> userManager, ITokenHandler tokenHandler)
         {
-            this.mediator = mediator;
             this.userManager = userManager;
             this.tokenHandler = tokenHandler;
         }

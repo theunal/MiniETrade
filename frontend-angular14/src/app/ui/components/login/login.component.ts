@@ -1,4 +1,4 @@
-import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, SocialAuthService, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
@@ -16,11 +16,17 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup
 
+  isAuth: boolean = false
+
+  googleLoginButtonPressed: boolean = false
+
   constructor(private userService: UserService, private toastr: ToastrService, private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute, private router: Router, private socialAuthService: SocialAuthService,
-    private authService: AuthService) {
+    private authService: AuthService) { }
 
-    if (this.authService.isAuthenticated() === false) {
+  ngOnInit(): void {
+    this.createLoginForm()
+    if (this.authService.isAuth === false) {
       this.socialAuthService.authState.subscribe(res => {
         this.spinner.show()
         this.userService.googleLogin(res).subscribe((res: any) => {
@@ -30,17 +36,13 @@ export class LoginComponent implements OnInit {
           this.activatedRoute.queryParams.subscribe(res => {
             res['returnUrl'] ? this.router.navigate([res['returnUrl']]) : ''
           })
+          console.log(this.authService.isAuthenticated())
         })
       }, err => {
         this.spinner.hide()
         console.log('google login err')
       })
     }
-    
-  }
-
-  ngOnInit(): void {
-    this.createLoginForm()
   }
 
   createLoginForm() {
@@ -68,5 +70,28 @@ export class LoginComponent implements OnInit {
       this.spinner.hide()
       this.toastr.warning('Lütfen giriş bilgilerinizi giriniz.')
     }
+  }
+
+  async fbLogin() {
+    await this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID)
+    this.spinner.show()
+    this.socialAuthService.authState.subscribe(res => {
+      this.userService.fbLogin(res).subscribe(res => {
+        this.spinner.hide()
+        this.toastr.success('Giriş Başarılı')
+        localStorage.setItem('token', res.token.token)
+        this.authService.isAuthenticated()
+        this.activatedRoute.queryParams.subscribe(res => {
+          res['returnUrl'] ? this.router.navigate([res['returnUrl']]) : ''
+        })
+      }, err => {
+        this.spinner.hide()
+      })
+    })
+  }
+
+  googleLoginButton() {
+    this.googleLoginButtonPressed = true
+    console.log(this.googleLoginButtonPressed)
   }
 }

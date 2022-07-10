@@ -6,6 +6,7 @@ import { UserAddResponse } from 'src/app/models/user/userAddResponse';
 import { UserLoginDto } from 'src/app/models/user/userLoginDto';
 import { UserLoginResponse } from 'src/app/models/user/userLoginResponse';
 import { GoogleLoginRequest } from 'src/app/models/user/googleLoginRequest';
+import { FacebookLoginRequest } from 'src/app/models/user/fbLoginRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,12 @@ export class UserService {
       controller: 'users',
       action: 'googleLogin'
     }, login)
+  }
+
+  fbLogin(fblogin: FacebookLoginRequest): Observable<{ token: { token: string, expiration: string } }> {
+    return this.http.post<FacebookLoginRequest>({
+      controller: 'users',
+      action: 'fbLogin'
+    }, fblogin)
   }
 }
